@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: edequality-frontend
+    env: static
+    buildCommand: ""
+    staticPublishPath: .
