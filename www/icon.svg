@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8A4E1E"/>
+      <stop offset="100%" stop-color="#5B3414"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F6D365"/>
+      <stop offset="100%" stop-color="#FDA085"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <!-- Open Book & Equality Emblem -->
+  <g transform="translate(64, 80) scale(0.75)" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Book Left Page -->
+    <path d="M256 360 C180 340 100 340 40 370 L40 130 C100 100 180 100 256 120 Z" fill="#FAF6EC" stroke="#FAF6EC"/>
+    <!-- Book Right Page -->
+    <path d="M256 360 C332 340 412 340 472 370 L472 130 C412 100 332 100 256 120 Z" fill="#FFFFFF" stroke="#FFFFFF"/>
+    <!-- Center Spine -->
+    <line x1="256" y1="120" x2="256" y2="370" stroke="#8A4E1E" stroke-width="16"/>
+  </g>
+  <!-- Equality Sign & Global Reach -->
+  <g transform="translate(176, 220)">
+    <rect x="0" y="0" width="160" height="30" rx="15" fill="#E8B36A"/>
+    <rect x="0" y="50" width="160" height="30" rx="15" fill="#E8B36A"/>
+  </g>
+  <!-- Graduation Star -->
+  <circle cx="256" cy="115" r="22" fill="#F6D365"/>
+</svg>

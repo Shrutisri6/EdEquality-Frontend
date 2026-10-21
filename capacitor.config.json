@@ -1,5 +1,10 @@
 {
   "appId": "com.edequality.app",
   "appName": "EdEquality",
-  "webDir": "www"
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  }
 }
