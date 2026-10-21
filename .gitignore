@@ -1,0 +1,19 @@
+# Dependencies (do not commit)
+node_modules/
+
+# Build / generated outputs that should NOT be versioned
+# (icons/ IS versioned — Render serves them as static assets)
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Local env
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*

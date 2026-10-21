@@ -3,7 +3,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="EdEquality">
+  <meta name="theme-color" content="#8A4E1E">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
+  <script src="capacitor.js" onerror="console.log('Capacitor web fallback mode')"></script>
   <title>EdEquality — Open Education for All</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
   <style>
@@ -1198,6 +1208,205 @@
         align-items: flex-start;
       }
     }
+  
+    /* ---------- Mobile App & Safe Area Optimizations ---------- */
+    :root {
+      --sat: env(safe-area-inset-top, 0px);
+      --sab: env(safe-area-inset-bottom, 0px);
+      --sal: env(safe-area-inset-left, 0px);
+      --sar: env(safe-area-inset-right, 0px);
+    }
+    body {
+      padding-top: var(--sat);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .mobile-bottom-nav {
+      display: none;
+    }
+    .mobile-brand {
+      display: none;
+    }
+    .mobile-toast {
+      position: fixed;
+      top: calc(16px + var(--sat));
+      left: 50%;
+      transform: translateX(-50%);
+      background: #211509;
+      color: #FFF;
+      padding: 10px 18px;
+      border-radius: 24px;
+      font-size: 12.5px;
+      font-weight: 600;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      .app {
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .sidebar {
+        position: fixed;
+        left: -320px;
+        transition: left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        z-index: 1000;
+        bottom: 0;
+        top: 0;
+        width: 280px;
+        box-shadow: 6px 0 24px rgba(0,0,0,0.3);
+      }
+      .app.sidebar-open .sidebar {
+        left: 0;
+      }
+      .topbar {
+        padding: 10px 14px;
+        gap: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 90;
+      }
+      .topbar .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .topbar .mobile-brand-mark {
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: linear-gradient(135deg, var(--amber), var(--accent-dark));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: #fff;
+        font-size: 13px;
+        flex-shrink: 0;
+      }
+      .topbar .crumb {
+        font-size: 14px;
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .searchbox {
+        display: none !important;
+      }
+      .content {
+        padding: 12px 10px calc(76px + var(--sab)) 10px !important;
+      }
+      .grid-5, .grid-4, .grid-3, .grid-2,
+      .grid-dashboard-main, .grid-upload-main, .grid-analytics-main {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+      .card {
+        padding: 14px !important;
+        border-radius: 12px;
+      }
+      table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .page-head {
+        margin-top: 4px;
+        margin-bottom: 12px;
+      }
+      .page-head h1 {
+        font-size: 18px;
+      }
+      .page-head p {
+        font-size: 12px;
+      }
+      .page-head-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .page-head-row .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+      }
+      .section-title-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .section-title-row > div:last-child {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .select-inline {
+        flex: 1;
+        min-width: 120px;
+      }
+      
+      /* Sleek Native Mobile Bottom Navigation */
+      .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: calc(58px + var(--sab));
+        padding-bottom: var(--sab);
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-top: 1px solid var(--border);
+        z-index: 999;
+        justify-content: space-around;
+        align-items: center;
+        box-shadow: 0 -2px 14px rgba(43, 33, 23, 0.08);
+      }
+      .mbn-item {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: var(--text-dim);
+        font-size: 10px;
+        font-weight: 600;
+        padding: 4px 2px;
+        cursor: pointer;
+        transition: color 0.15s, transform 0.15s;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .mbn-item.active {
+        color: var(--accent);
+        font-weight: 700;
+      }
+      .mbn-item:active {
+        transform: scale(0.92);
+      }
+      .mbn-icon {
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: 2px;
+        display: block;
+      }
+      .mbn-item.active .mbn-icon {
+        transform: translateY(-1px);
+      }
+    }
   </style>
 </head>
 
@@ -2039,6 +2248,40 @@
         </section>
 
       </div>
+    
+    <!-- ===================== MOBILE BOTTOM NAVIGATION ===================== -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav">
+      <button class="mbn-item active" data-view="dashboard" title="Dashboard">
+        <span class="mbn-icon">📊</span>
+        <span class="mbn-label">Dashboard</span>
+      </button>
+      <button class="mbn-item" data-view="upload" title="Ingest">
+        <span class="mbn-icon">📤</span>
+        <span class="mbn-label">Ingest</span>
+      </button>
+      <button class="mbn-item" data-view="cultural_translation" title="Studio">
+        <span class="mbn-icon">🌐</span>
+        <span class="mbn-label">Studio</span>
+      </button>
+      <button class="mbn-item" data-view="curriculum" title="Curriculum">
+        <span class="mbn-icon">📋</span>
+        <span class="mbn-label">Curriculum</span>
+      </button>
+      <button class="mbn-item" data-view="review" title="Review">
+        <span class="mbn-icon">✍️</span>
+        <span class="mbn-label">Review</span>
+      </button>
+      <button class="mbn-item" data-view="analytics" title="Analytics">
+        <span class="mbn-icon">📈</span>
+        <span class="mbn-label">Analytics</span>
+      </button>
+    </nav>
+
+    <!-- Mobile Toast Notification -->
+    <div id="mobileToast" class="mobile-toast">
+      <span id="mobileToastIcon">✨</span>
+      <span id="mobileToastText">Notification</span>
+    </div>
     </main>
   </div>
 
@@ -2066,6 +2309,49 @@
       curriculum: 'Curriculum Alignment', review: 'Review & Approval',
       analytics: 'Analytics Dashboard', knowledge: 'Knowledge Base', settings: 'Settings'
     };
+    
+    // ---------- Unified Mobile & Desktop Navigation ----------
+    function showMobileToast(msg, icon = '📱') {
+      const toast = document.getElementById('mobileToast');
+      const text = document.getElementById('mobileToastText');
+      const iconEl = document.getElementById('mobileToastIcon');
+      if (toast && text) {
+        text.textContent = msg;
+        if (iconEl) iconEl.textContent = icon;
+        toast.style.display = 'flex';
+        setTimeout(() => { toast.style.display = 'none'; }, 3200);
+      }
+    }
+
+    function switchView(target) {
+      if (!titles[target]) return;
+      document.querySelectorAll('#navList a').forEach(l => {
+        l.classList.toggle('active', l.dataset.view === target);
+      });
+      document.querySelectorAll('.mbn-item').forEach(b => {
+        b.classList.toggle('active', b.dataset.view === target);
+      });
+      views.forEach(v => v.classList.remove('active'));
+      const targetView = document.getElementById('view-' + target);
+      if (targetView) targetView.classList.add('active');
+      if (crumbTitle) crumbTitle.textContent = titles[target];
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (target === 'upload') loadUploadData();
+      if (target === 'cultural_translation') loadCulturalTranslationData();
+      if (target === 'curriculum') loadCurriculumData();
+      if (target === 'review') loadReviewData();
+      if (target === 'analytics') loadAnalyticsData();
+      if (target === 'dashboard') fetchDashboardData();
+    }
+
+    document.querySelectorAll('.mbn-item').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchView(btn.dataset.view);
+      });
+    });
+
     navLinks.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
@@ -3398,6 +3684,29 @@
         appEl.classList.remove('sidebar-open');
       });
     });
+  </script>
+
+  <!-- PWA Service Worker Registration -->
+  <script>
+    // Only register in web/PWA context � skip inside Capacitor native shell
+    if ('serviceWorker' in navigator && !window.Capacitor) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker
+          .register('./sw.js', { scope: './', updateViaCache: 'none' })
+          .then(function (reg) {
+            console.log('[SW] Registered, scope:', reg.scope);
+            reg.addEventListener('updatefound', function () {
+              var newWorker = reg.installing;
+              newWorker.addEventListener('statechange', function () {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('[SW] New version available � reload to update.');
+                }
+              });
+            });
+          })
+          .catch(function (err) { console.warn('[SW] Registration failed:', err); });
+      });
+    }
   </script>
 </body>
 
